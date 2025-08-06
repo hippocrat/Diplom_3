@@ -40,6 +40,7 @@ public class RegistrationTest {
         registrationPage.setEmail(email);
         registrationPage.setPassword(password);
         registrationPage.clickRegistryButton();
+//        registrationPage.checkLoginHeaderIsDisplayed();
         userShouldBeDeleted = true;
     }
 

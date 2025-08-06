@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegistrationPage {
@@ -19,6 +18,10 @@ public class RegistrationPage {
     private By registryButton = By.tagName("button");
     // Абзац с текстом "Некорректный пароль"
     private By wrongPasswordMessage = By.xpath("//p[text()=\"Некорректный пароль\"]");
+    //Кнопка Войти на странице регистрации
+    private By loginButtonOnRegistryPage = By.className("Auth_link__1fOlj");
+    // Заголовок страницы Вход
+    private By loginHeader = By.xpath("//h2[1]");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -38,6 +41,16 @@ public class RegistrationPage {
 
     public void clickRegistryButton() {
         driver.findElement(registryButton).click();
+    }
+
+    public void clickLoginButtonOnRegistryPage() {
+        driver.findElement(loginButtonOnRegistryPage).click();
+    }
+
+    public void checkLoginHeaderIsDisplayed() {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement loginHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='Вход']")));
+        assertTrue(driver.findElement(loginHeader).isDisplayed(), "Текст авторизации не отображается на странице");
     }
 
     public void checkPasswordErrorIsDisplayed() {
