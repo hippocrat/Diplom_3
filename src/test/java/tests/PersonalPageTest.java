@@ -28,17 +28,31 @@ public class PersonalPageTest {
         mainPage = new MainPage(driver);
         authorizationPage = new AuthorizationPage(driver);
         personalPage = new PersonalPage(driver);
-    }
-
-    @Test
-    @DisplayName("Проверка перехода в «Личный кабинет»")
-    public void transitionToPersonalPageCheck() {
         mainPage.clickPersonalPageButton();
         authorizationPage.setEmail(email);
         authorizationPage.setPassword(password);
         authorizationPage.clickLoginButton();
         mainPage.clickPersonalPageButton();
+    }
+
+    @Test
+    @DisplayName("Проверка перехода в «Личный кабинет»")
+    public void transitionToPersonalPageCheck() {
         personalPage.checkProfileSectionIsDisplayed();
+    }
+
+    @Test
+    @DisplayName("Проверка перехода в Конструктор из «Личного кабинета»")
+    public void transitionToConstructorFromPersonalPageCheck() {
+        mainPage.clickConstructorButton();
+        mainPage.checkCollectBurgerHeaderIsDisplayed();
+    }
+
+    @Test
+    @DisplayName("Проверка перехода в Конструктор из «Личного кабинета» нажатием логотипа сайта")
+    public void clickLogoAndTransitionToConstructorFromPersonalPageCheck() {
+        mainPage.clickMainLogoButton();
+        mainPage.checkCollectBurgerHeaderIsDisplayed();
     }
 
     @AfterEach

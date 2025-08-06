@@ -21,9 +21,19 @@ public class MainPage {
     private By loginButton = By.xpath("//*[@id=\"root\"]/div/main/section[2]/div/button");
     // Кнопка Оформить заказ
     private By makeOrderButton = By.xpath("//button[text()='Оформить заказ']");
+    // Заголовок "Соберите бургер"
+    private By collectBurgerHeader = By.xpath("//h1[text()='Соберите бургер']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void clickConstructorButton() {
+        driver.findElement(constructorButton).click();
+    }
+
+    public void clickMainLogoButton() {
+        driver.findElement(mainLogoButton).click();
     }
 
     public void clickPersonalPageButton() {
@@ -37,5 +47,10 @@ public class MainPage {
     public void checkMakeOrderButtonIsDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(makeOrderButton));
+    }
+
+    public void checkCollectBurgerHeaderIsDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(collectBurgerHeader));
     }
 }
