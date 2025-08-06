@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import pages.AuthorizationPage;
 import pages.RegistrationPage;
 import utils.Browser;
 import utils.UserApiHelper;
@@ -13,6 +14,7 @@ public class RegistrationTest {
 
     private WebDriver driver;
     RegistrationPage registrationPage;
+    AuthorizationPage authorizationPage;
     private String name = "Noel";
     private String email = "monfils88@mail.com";
     private String password = "tennis";
@@ -24,13 +26,9 @@ public class RegistrationTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
-//        driver = new ChromeDriver(options);
         driver.get("https://stellarburgers.nomoreparties.site/register");
-
         registrationPage = new RegistrationPage(driver);
+        authorizationPage = new AuthorizationPage(driver);
     }
 
     @Test
@@ -40,7 +38,7 @@ public class RegistrationTest {
         registrationPage.setEmail(email);
         registrationPage.setPassword(password);
         registrationPage.clickRegistryButton();
-//        registrationPage.checkLoginHeaderIsDisplayed();
+        authorizationPage.checkLoginHeaderIsDisplayed();
         userShouldBeDeleted = true;
     }
 

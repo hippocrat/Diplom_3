@@ -55,6 +55,13 @@ public class PersonalPageTest {
         mainPage.checkCollectBurgerHeaderIsDisplayed();
     }
 
+    @Test
+    @DisplayName("Проверка выхода из «Личного кабинета»")
+    public void unauthorizationFromPersonalPageCheck() {
+        personalPage.clickExitButton();
+        authorizationPage.checkLoginHeaderIsDisplayed();
+    }
+
     @AfterEach
     public void tearDown() {
         driver.quit();

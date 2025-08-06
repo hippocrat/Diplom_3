@@ -20,8 +20,6 @@ public class RegistrationPage {
     private By wrongPasswordMessage = By.xpath("//p[text()=\"Некорректный пароль\"]");
     //Кнопка Войти на странице регистрации
     private By loginButtonOnRegistryPage = By.className("Auth_link__1fOlj");
-    // Заголовок страницы Вход
-    private By loginHeader = By.xpath("//h2[1]");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -45,12 +43,6 @@ public class RegistrationPage {
 
     public void clickLoginButtonOnRegistryPage() {
         driver.findElement(loginButtonOnRegistryPage).click();
-    }
-
-    public void checkLoginHeaderIsDisplayed() {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement loginHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='Вход']")));
-        assertTrue(driver.findElement(loginHeader).isDisplayed(), "Текст авторизации не отображается на странице");
     }
 
     public void checkPasswordErrorIsDisplayed() {

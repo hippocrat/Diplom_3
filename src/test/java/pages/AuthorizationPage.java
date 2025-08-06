@@ -2,11 +2,17 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AuthorizationPage {
 
     private WebDriver driver;
 
+    // Заголовок страницы Вход
+    private By loginHeader = By.xpath("//h2[text()='Вход']");
     // Поле ввода почты
     private By emailInput = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");
     // Поле ввода пароля
@@ -16,6 +22,11 @@ public class AuthorizationPage {
 
     public AuthorizationPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void checkLoginHeaderIsDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loginHeader));
     }
 
     public void setEmail(String email) {
