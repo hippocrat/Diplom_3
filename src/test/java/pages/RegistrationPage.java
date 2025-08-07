@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,30 +26,33 @@ public class RegistrationPage {
         this.driver = driver;
     }
 
+    @Step("Установка имени в поле ввода")
     public void setName(String name) {
         driver.findElement(nameInput).sendKeys(name);
     }
 
+    @Step("Установка почты в поле ввода")
     public void setEmail(String email) {
         driver.findElement(emailInput).sendKeys(email);
     }
 
+    @Step("Установка пароля в поле ввода")
     public void setPassword(String password) {
         driver.findElement(passwordInput).sendKeys(password);
     }
 
+    @Step("Выбрать кнопку Регистрация")
     public void clickRegistryButton() {
         driver.findElement(registryButton).click();
     }
 
+    @Step("Выбрать кнопку Вход на странице Регистрации")
     public void clickLoginButtonOnRegistryPage() {
         driver.findElement(loginButtonOnRegistryPage).click();
     }
 
+    @Step("Проверка оторажения ошибки некорректного пароля")
     public void checkPasswordErrorIsDisplayed() {
-//        String expectedText = "Некорректный пароль";
-//        String actualText = driver.findElement(wrongPasswordMessage).getText();
-//        assertTrue(actualText.contains(expectedText), "Текст не соответствует ожидаемому");
         assertTrue(driver.findElement(wrongPasswordMessage).isDisplayed(), "Текст ошибки не отображается на странице");
     }
 

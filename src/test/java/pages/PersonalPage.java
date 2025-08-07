@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,11 +21,13 @@ public class PersonalPage {
         this.driver = driver;
     }
 
+    @Step("Выбрать кнопку 'Выход'")
     public void clickExitButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(exitButton)).click();
     }
 
+    @Step("Проверка отображения секции Профиля")
     public void checkProfileSectionIsDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(profileSection));
