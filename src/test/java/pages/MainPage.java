@@ -41,6 +41,8 @@ public class MainPage {
 
     @Step("Выбрать кнопку Личного кабинета")
     public void clickPersonalPageButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".Modal_modal_overlay__x2ZCr")));
         driver.findElement(personalPageButton).click();
     }
 
