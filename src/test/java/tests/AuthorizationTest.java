@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +11,8 @@ import pages.MainPage;
 import pages.RegistrationPage;
 import utils.Browser;
 
+@Epic("Авторизация")
+@Feature("Вход в аккаунт")
 public class AuthorizationTest {
 
     private WebDriver driver;
@@ -31,7 +34,8 @@ public class AuthorizationTest {
     }
 
     @Test
-    @DisplayName("Вход по кнопке «Войти в аккаунт» на главной")
+    @Story("Вход по кнопке на главной")
+    @Description("Проверка входа через кнопку «Войти в аккаунт» на главной странице")
     public void loginWithLoginButtonOnMainPageSuccess() {
         mainPage.clickLoginButton();
         authorizationPage.setEmail(email);
