@@ -20,7 +20,6 @@ public class RegistrationTest {
     private String password = "tennis";
     private boolean userShouldBeDeleted = false;
 
-
     @BeforeEach
     public void setUp() {
         String browser = System.getProperty("browser", "chrome");
