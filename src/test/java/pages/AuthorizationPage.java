@@ -35,6 +35,7 @@ public class AuthorizationPage {
     public void setEmail(String email) {
         driver.findElement(emailInput).sendKeys(email);
     }
+
     @Step("Установка пароля")
     public void setPassword(String password) {
         driver.findElement(passwordInput).sendKeys(password);
