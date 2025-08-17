@@ -15,9 +15,9 @@ public class AuthorizationPage {
     // Заголовок страницы Вход
     private By loginHeader = By.xpath("//h2[text()='Вход']");
     // Поле ввода почты
-    private By emailInput = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");
+    private By emailInput = By.xpath("//form/fieldset[1]//input");
     // Поле ввода пароля
-    private By passwordInput = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[2]/div/div/input");
+    private By passwordInput = By.xpath("//form/fieldset[2]//input");
     // Кнопка Войти
     private By loginButton = By.tagName("button");
 
