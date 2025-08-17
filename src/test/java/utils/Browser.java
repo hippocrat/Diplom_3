@@ -5,8 +5,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 public class Browser {
 
@@ -24,20 +27,24 @@ public class Browser {
     private static WebDriver createYandexDriver() {
         String osName = System.getProperty("os.name").toLowerCase();
 
+        Properties props = new Properties();
+        try (InputStream input = Browser.class.getResourceAsStream("/config.properties")) {
+            props.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось загрузить config.properties", e);
+        }
+
         String yandexPath;
         String driverPath;
 
         if (osName.contains("win")) {
-            // Windows
-            yandexPath = "C:/Users/" + System.getProperty("user.name")
-                    + "/AppData/Local/Yandex/YandexBrowser/Application/browser.exe";
-            driverPath = "C:/drivers/yandexdriver.exe";
-
+            yandexPath = props.getProperty("yandex.path.windows")
+                    .replace("${user.home}", System.getProperty("user.home"));
+            driverPath = props.getProperty("yandex.driver.windows")
+                    .replace("${user.home}", System.getProperty("user.home"));
         } else if (osName.contains("mac")) {
-            // macOS
-            yandexPath = "/Applications/Yandex.app/Contents/MacOS/Yandex";
-            driverPath = "/usr/local/bin/yandexdriver";
-
+            yandexPath = props.getProperty("yandex.path.mac");
+            driverPath = props.getProperty("yandex.driver.mac");
         } else {
             throw new RuntimeException("Yandex browser path not configured for OS: " + osName);
         }
@@ -59,5 +66,6 @@ public class Browser {
 
         return new ChromeDriver(options);
     }
+
 }
 
