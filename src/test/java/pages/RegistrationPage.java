@@ -10,11 +10,11 @@ public class RegistrationPage {
     private WebDriver driver;
 
     // Поле ввода имени
-    private By nameInput = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");
+    private By nameInput = By.xpath("//form/fieldset[1]//input");
     // Поле ввода почты
-    private By emailInput = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[2]/div/div/input");
+    private By emailInput = By.xpath("//form/fieldset[2]//input");
     // Поле ввода пароля
-    private By passwordInput = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[3]/div/div/input");
+    private By passwordInput = By.xpath("//form/fieldset[3]//input");
     // Кнопка Зарегистрироваться
     private By registryButton = By.tagName("button");
     // Абзац с текстом "Некорректный пароль"
