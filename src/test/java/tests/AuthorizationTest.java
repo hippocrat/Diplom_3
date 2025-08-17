@@ -1,21 +1,22 @@
 package tests;
 
 import io.qameta.allure.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pages.AuthorizationPage;
 import pages.MainPage;
 import pages.RegistrationPage;
 import utils.Browser;
 
+import static pages.AuthorizationPage.*;
+
 @Epic("Авторизация")
 @Feature("Вход в аккаунт")
 public class AuthorizationTest {
 
-    private final String mainUrl = "https://stellarburgers.nomoreparties.site";
+    private static final String mainUrl = "https://stellarburgers.nomoreparties.site";
     private final String registerPageUrl = "https://stellarburgers.nomoreparties.site/register";
     private final String forgotPasswordPageUrl = "https://stellarburgers.nomoreparties.site/forgot-password";
 
@@ -23,8 +24,17 @@ public class AuthorizationTest {
     MainPage mainPage;
     AuthorizationPage authorizationPage;
     RegistrationPage registrationPage;
-    private String email = "hilokea@yandex.ru";
-    private String password = "kassian";
+    private static String email = "hilokea@yandex.ru";
+    private static String password = "kassian";
+    private static String name = "Kolo";
+
+    @BeforeAll
+    public static void setUpAll() {
+        RestAssured.baseURI = mainUrl;
+        registerUser(email, password, name)
+                .then()
+                .statusCode(200);
+    }
 
     @BeforeEach
     public void setUp() {
@@ -83,5 +93,20 @@ public class AuthorizationTest {
     @AfterEach
     public void tearDown() {
         driver.quit();
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        String requestBody = "{\n" +
+                "  \"email\": \"" + email + "\",\n" +
+                "  \"password\": \"" + password + "\"\n" +
+                "}";
+
+        Response response = loginUser(requestBody);
+        String token = response.jsonPath().getString("accessToken");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            deleteUser(token);
+        }
     }
 }

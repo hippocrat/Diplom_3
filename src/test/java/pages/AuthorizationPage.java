@@ -1,12 +1,16 @@
 package pages;
 
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static io.restassured.RestAssured.given;
 
 public class AuthorizationPage {
 
@@ -44,5 +48,38 @@ public class AuthorizationPage {
     @Step("Нажать кнопку Входа")
     public void clickLoginButton() {
         driver.findElement(loginButton).click();
+    }
+
+    @Step("Регистрация пользователя с email: {email}, password: {password}, name: {name}")
+    public static Response registerUser(String email, String password, String name) {
+        String requestBody = "{\n" +
+                "  \"email\": \"" + email + "\",\n" +
+                "  \"password\": \"" + password + "\",\n" +
+                "  \"name\": \"" + name + "\"\n" +
+                "}";
+        return given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .post("/api/auth/register");
+    }
+
+    @Step("Авторизация пользователя")
+    public static Response loginUser(String requestBody) {
+        return given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .post("/api/auth/login");
+    }
+
+    @Step("Удаление пользователя с accessToken")
+    public static void deleteUser(String token) {
+        given()
+                .auth().oauth2(token)
+                .when()
+                .delete("/api/auth/user")
+                .then()
+                .statusCode(202);
     }
 }
