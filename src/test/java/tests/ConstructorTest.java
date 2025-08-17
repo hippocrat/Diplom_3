@@ -11,6 +11,7 @@ import utils.Browser;
 
 public class ConstructorTest {
 
+    private final String mainUrl = "https://stellarburgers.nomoreparties.site";
     private WebDriver driver;
     MainPage mainPage;
     ConstructorPage constructorPage;
@@ -20,7 +21,7 @@ public class ConstructorTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get("https://stellarburgers.nomoreparties.site");
+        driver.get(mainUrl);
         mainPage = new MainPage(driver);
         constructorPage = new ConstructorPage(driver);
     }

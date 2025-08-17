@@ -12,6 +12,7 @@ import utils.UserApiHelper;
 
 public class RegistrationTest {
 
+    private final String registerPageUrl = "https://stellarburgers.nomoreparties.site/register";
     private WebDriver driver;
     RegistrationPage registrationPage;
     AuthorizationPage authorizationPage;
@@ -25,7 +26,7 @@ public class RegistrationTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get("https://stellarburgers.nomoreparties.site/register");
+        driver.get(registerPageUrl);
         registrationPage = new RegistrationPage(driver);
         authorizationPage = new AuthorizationPage(driver);
     }

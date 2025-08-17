@@ -15,6 +15,10 @@ import utils.Browser;
 @Feature("Вход в аккаунт")
 public class AuthorizationTest {
 
+    private final String mainUrl = "https://stellarburgers.nomoreparties.site";
+    private final String registerPageUrl = "https://stellarburgers.nomoreparties.site/register";
+    private final String forgotPasswordPageUrl = "https://stellarburgers.nomoreparties.site/forgot-password";
+
     private WebDriver driver;
     MainPage mainPage;
     AuthorizationPage authorizationPage;
@@ -27,7 +31,7 @@ public class AuthorizationTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get("https://stellarburgers.nomoreparties.site");
+        driver.get(mainUrl);
         mainPage = new MainPage(driver);
         authorizationPage = new AuthorizationPage(driver);
         registrationPage = new RegistrationPage(driver);
@@ -57,7 +61,7 @@ public class AuthorizationTest {
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     public void loginWithButtonOnRegistrationPageSuccess() {
-        driver.get("https://stellarburgers.nomoreparties.site/register");
+        driver.get(registerPageUrl);
         registrationPage.clickLoginButtonOnRegistryPage();
         authorizationPage.setEmail(email);
         authorizationPage.setPassword(password);
@@ -68,7 +72,7 @@ public class AuthorizationTest {
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     public void loginWithButtonOnRestorePageSuccess() {
-        driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
+        driver.get(forgotPasswordPageUrl);
         registrationPage.clickLoginButtonOnRegistryPage();
         authorizationPage.setEmail(email);
         authorizationPage.setPassword(password);

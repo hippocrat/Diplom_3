@@ -12,6 +12,7 @@ import utils.Browser;
 
 public class PersonalPageTest {
 
+    private final String mainUrl = "https://stellarburgers.nomoreparties.site";
     private WebDriver driver;
     MainPage mainPage;
     AuthorizationPage authorizationPage;
@@ -24,7 +25,7 @@ public class PersonalPageTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get("https://stellarburgers.nomoreparties.site");
+        driver.get(mainUrl);
         mainPage = new MainPage(driver);
         authorizationPage = new AuthorizationPage(driver);
         personalPage = new PersonalPage(driver);
