@@ -3,6 +3,7 @@ package utils;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import requests.RegistrationRequest;
 
 import java.util.Map;
 
@@ -12,14 +13,10 @@ public class UserApiHelper extends BaseTest {
 
     @Step("Регистрация пользователя с email: {email}, password: {password}, name: {name}")
     public static Response registerUser(String email, String password, String name) {
-        String requestBody = "{\n" +
-                "  \"email\": \"" + email + "\",\n" +
-                "  \"password\": \"" + password + "\",\n" +
-                "  \"name\": \"" + name + "\"\n" +
-                "}";
+        RegistrationRequest registrationRequest = new RegistrationRequest(email, password, name);
         return given()
                 .contentType(ContentType.JSON)
-                .body(requestBody)
+                .body(registrationRequest)
                 .when()
                 .post("/api/auth/register");
     }
