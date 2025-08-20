@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class UserApiHelper {
+public class UserApiHelper extends BaseTest {
 
     public static String getToken(String email, String password) {
         Response response =
@@ -15,7 +15,7 @@ public class UserApiHelper {
                         .contentType(ContentType.JSON)
                         .body(Map.of("email", email, "password", password))
                         .when()
-                        .post("https://stellarburgers.nomoreparties.site/api/auth/login");
+                        .post(LOGIN_API);
 
         String token = response.jsonPath().getString("accessToken");
         if (token != null && token.startsWith("Bearer ")) {
@@ -30,7 +30,7 @@ public class UserApiHelper {
             given()
                     .auth().oauth2(token)
                     .when()
-                    .delete("https://stellarburgers.nomoreparties.site/api/auth/user")
+                    .delete(DELETE_API)
                     .then()
                     .statusCode(202);
         }
