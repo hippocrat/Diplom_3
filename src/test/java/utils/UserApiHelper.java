@@ -1,5 +1,6 @@
 package utils;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -9,6 +10,21 @@ import static io.restassured.RestAssured.given;
 
 public class UserApiHelper extends BaseTest {
 
+    @Step("Регистрация пользователя с email: {email}, password: {password}, name: {name}")
+    public static Response registerUser(String email, String password, String name) {
+        String requestBody = "{\n" +
+                "  \"email\": \"" + email + "\",\n" +
+                "  \"password\": \"" + password + "\",\n" +
+                "  \"name\": \"" + name + "\"\n" +
+                "}";
+        return given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .post("/api/auth/register");
+    }
+
+    @Step("Аутентификация пользователя с email: {email}, password: {password} и получение токена")
     public static String getToken(String email, String password) {
         Response response =
                 given()
@@ -24,6 +40,7 @@ public class UserApiHelper extends BaseTest {
         return null;
     }
 
+    @Step("Удаление пользователя с email: {email}, password: {password}")
     public static void deleteUser(String email, String password) {
         String token = getToken(email, password);
         if (token != null) {

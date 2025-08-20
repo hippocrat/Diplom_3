@@ -2,7 +2,6 @@ package tests;
 
 import io.qameta.allure.*;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pages.AuthorizationPage;
@@ -10,6 +9,7 @@ import pages.MainPage;
 import pages.RegistrationPage;
 import utils.BaseTest;
 import utils.Browser;
+import utils.UserApiHelper;
 
 import static pages.AuthorizationPage.*;
 
@@ -28,7 +28,7 @@ public class AuthorizationTest extends BaseTest {
     @BeforeAll
     public static void setUpAll() {
         RestAssured.baseURI = MAIN_URL;
-        registerUser(email, password, name)
+        UserApiHelper.registerUser(email, password, name)
                 .then()
                 .statusCode(200);
     }
@@ -94,16 +94,6 @@ public class AuthorizationTest extends BaseTest {
 
     @AfterAll
     public static void tearDownAll() {
-        String requestBody = "{\n" +
-                "  \"email\": \"" + email + "\",\n" +
-                "  \"password\": \"" + password + "\"\n" +
-                "}";
-
-        Response response = loginUser(requestBody);
-        String token = response.jsonPath().getString("accessToken");
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-            deleteUser(token);
-        }
+        UserApiHelper.deleteUser(email, password);
     }
 }
