@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.AuthorizationPage;
 import pages.RegistrationPage;
+import utils.BaseTest;
 import utils.Browser;
 import utils.UserApiHelper;
 
-public class RegistrationTest {
+public class RegistrationTest extends BaseTest {
 
-    private final String registerPageUrl = "https://stellarburgers.nomoreparties.site/register";
     private WebDriver driver;
     RegistrationPage registrationPage;
     AuthorizationPage authorizationPage;
@@ -26,7 +26,7 @@ public class RegistrationTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get(registerPageUrl);
+        driver.get(REGISTER_PAGE_URL);
         registrationPage = new RegistrationPage(driver);
         authorizationPage = new AuthorizationPage(driver);
     }

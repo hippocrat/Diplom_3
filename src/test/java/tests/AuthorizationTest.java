@@ -8,17 +8,14 @@ import org.openqa.selenium.WebDriver;
 import pages.AuthorizationPage;
 import pages.MainPage;
 import pages.RegistrationPage;
+import utils.BaseTest;
 import utils.Browser;
 
 import static pages.AuthorizationPage.*;
 
 @Epic("Авторизация")
 @Feature("Вход в аккаунт")
-public class AuthorizationTest {
-
-    private static final String mainUrl = "https://stellarburgers.nomoreparties.site";
-    private final String registerPageUrl = "https://stellarburgers.nomoreparties.site/register";
-    private final String forgotPasswordPageUrl = "https://stellarburgers.nomoreparties.site/forgot-password";
+public class AuthorizationTest extends BaseTest {
 
     private WebDriver driver;
     MainPage mainPage;
@@ -30,7 +27,7 @@ public class AuthorizationTest {
 
     @BeforeAll
     public static void setUpAll() {
-        RestAssured.baseURI = mainUrl;
+        RestAssured.baseURI = MAIN_URL;
         registerUser(email, password, name)
                 .then()
                 .statusCode(200);
@@ -41,7 +38,7 @@ public class AuthorizationTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get(mainUrl);
+        driver.get(MAIN_URL);
         mainPage = new MainPage(driver);
         authorizationPage = new AuthorizationPage(driver);
         registrationPage = new RegistrationPage(driver);
@@ -71,7 +68,7 @@ public class AuthorizationTest {
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     public void loginWithButtonOnRegistrationPageSuccess() {
-        driver.get(registerPageUrl);
+        driver.get(REGISTER_PAGE_URL);
         registrationPage.clickLoginButtonOnRegistryPage();
         authorizationPage.setEmail(email);
         authorizationPage.setPassword(password);
@@ -82,7 +79,7 @@ public class AuthorizationTest {
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     public void loginWithButtonOnRestorePageSuccess() {
-        driver.get(forgotPasswordPageUrl);
+        driver.get(FORGOT_PASSWORD_PAGE_URL);
         registrationPage.clickLoginButtonOnRegistryPage();
         authorizationPage.setEmail(email);
         authorizationPage.setPassword(password);

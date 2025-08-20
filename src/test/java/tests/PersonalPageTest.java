@@ -8,11 +8,11 @@ import org.openqa.selenium.WebDriver;
 import pages.AuthorizationPage;
 import pages.MainPage;
 import pages.PersonalPage;
+import utils.BaseTest;
 import utils.Browser;
 
-public class PersonalPageTest {
+public class PersonalPageTest extends BaseTest {
 
-    private final String mainUrl = "https://stellarburgers.nomoreparties.site";
     private WebDriver driver;
     MainPage mainPage;
     AuthorizationPage authorizationPage;
@@ -25,7 +25,7 @@ public class PersonalPageTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get(mainUrl);
+        driver.get(MAIN_URL);
         mainPage = new MainPage(driver);
         authorizationPage = new AuthorizationPage(driver);
         personalPage = new PersonalPage(driver);

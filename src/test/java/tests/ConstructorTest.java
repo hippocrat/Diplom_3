@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.ConstructorPage;
 import pages.MainPage;
+import utils.BaseTest;
 import utils.Browser;
 
-public class ConstructorTest {
+public class ConstructorTest extends BaseTest {
 
-    private final String mainUrl = "https://stellarburgers.nomoreparties.site";
     private WebDriver driver;
     MainPage mainPage;
     ConstructorPage constructorPage;
@@ -21,7 +21,7 @@ public class ConstructorTest {
         String browser = System.getProperty("browser", "chrome");
         driver = Browser.createDriver(browser);
         driver.manage().window().maximize();
-        driver.get(mainUrl);
+        driver.get(MAIN_URL);
         mainPage = new MainPage(driver);
         constructorPage = new ConstructorPage(driver);
     }
